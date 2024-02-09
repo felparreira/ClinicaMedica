@@ -1,0 +1,55 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ClinicaMedica.Localization
+@using Volo.Abp.Users
+@model ClinicaMedica.Web.Pages.IndexModel
+@inject IHtmlLocalizer<ClinicaMedicaResource> L
+@inject ICurrentUser CurrentUser
+@section styles {
+<abp-style src="/Pages/Index.css" />
+}
+@section scripts {
+<abp-script src="/Pages/Index.js" />
+}
+<div class="container">
+    <div class="p-5 text-center">
+        <h1>Sistema Clinica Médica</h1>
+
+        <p class="lead px-lg-5 mx-lg-5">@L["LongWelcomeMessage"]</p>
+
+        @if (!CurrentUser.IsAuthenticated)
+        {
+            <a abp-button="Primary" href="~/Account/Login"><i class="fa fa-sign-in"></i> @L["Login"]</a>
+        }
+
+    </div>
+    
+   <!-- <div class="card mt-4 mb-5">
+        <div class="card-body">
+            <div class="row text-center justify-content-md-center">
+                <div class="col-lg-4">
+                    <div class="p-4">
+                        <h5 class="mb-3"><i class="fas fa-book text-secondary d-block my-3 fa-2x"></i> Learn the ABP Framework</h5>
+                        <p>Explore the compherensive documentation.</p>
+                        <a href="https://docs.abp.io/en/abp/latest?ref=tmpl" target="_blank" class="btn btn-link px-1">See Documents <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 border-start">
+                    <div class="p-4">
+                        <h5 class="mb-3"><i class="fas fa-cubes text-secondary d-block my-3 fa-2x"></i> Samples</h5>
+                        <p>See the example projects built with the ABP Framework.</p>
+                        <a href="https://docs.abp.io/en/abp/latest/Samples/Index?ref=tmpl" target="_blank" class="btn btn-link px-1">All samples <i class="fas fa-chevron-right"></i></a>
+                    </div>
+                </div>
+                   <div class="col-lg-4 border-start">
+                       <div class="p-4">
+                           <h5 class="mb-3"><i class="fas fa-pen-nib text-secondary d-block my-3 fa-2x"></i> ABP Blog</h5>
+                           <p>Take a look at our recently published articles.</p>
+                           <a href="https://blog.abp.io/abp?ref=tmpl" target="_blank" class="btn btn-link px-1">See Blog <i class="fas fa-chevron-right"></i></a>
+                       </div>
+                   </div>
+            </div>
+
+        </div>
+    </div> -->
+</div>
