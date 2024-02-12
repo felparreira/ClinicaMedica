@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using ClinicaMedica.Medicos;
+using ClinicaMedica.Pacientes;
+using ClinicaMedica.Tratamentos;
 
 namespace ClinicaMedica;
 
@@ -6,8 +9,13 @@ public class ClinicaMedicaApplicationAutoMapperProfile : Profile
 {
     public ClinicaMedicaApplicationAutoMapperProfile()
     {
-        /* You can configure your AutoMapper mapping configuration here.
-         * Alternatively, you can split your mapping configurations
-         * into multiple profile classes for a better organization. */
+        CreateMap<Pacientes.Pacientes, PacientesDto>();
+        CreateMap<CreateUpdatePacientesDto, Pacientes.Pacientes>();
+        
+        CreateMap<Medicos.Medicos, MedicosDto>();
+        CreateMap<CreateUpdateMedicosDto, Medicos.Medicos>();
+        
+        CreateMap<Tratamentos.Tratamentos, TratamentosDto>();
+        CreateMap<CreateUpdateTratamentosDto, Tratamentos.Tratamentos>();
     }
 }

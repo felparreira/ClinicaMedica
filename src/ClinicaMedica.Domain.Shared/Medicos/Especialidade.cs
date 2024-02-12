@@ -6,6 +6,7 @@ public enum Especialidade
     Cardiologista,
     Ortopedista,
     Ginecologista,
-    Dermatologista
+    Dermatologista,
+    ClinicoGeral
 }
 
