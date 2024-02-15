@@ -1,0 +1,25 @@
+@page
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@using ClinicaMedica.Localization
+@using Volo.Abp.Users
+@model ClinicaMedica.Web.Pages.IndexModel
+@inject IHtmlLocalizer<ClinicaMedicaResource> L
+@inject ICurrentUser CurrentUser
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Pacientes</title>
+</head>
+<body>
+<div class="p-5 text-center">
+    <h2>Pacientes</h2>
+</div>
+</body>
+</html>

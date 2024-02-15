@@ -22,17 +22,40 @@ public class ClinicaMedicaMenuContributor : IMenuContributor
     {
         var administration = context.Menu.GetAdministration();
         var l = context.GetLocalizer<ClinicaMedicaResource>();
-
-        context.Menu.Items.Insert(
-            0,
+        
+        context.Menu.AddItem(
             new ApplicationMenuItem(
-                ClinicaMedicaMenus.Home,
+                "Início",
                 l["Menu:Home"],
-                "~/",
-                icon: "fas fa-home",
-                order: 0
+                icon: "fa fa-home",
+                url: "/"
             )
         );
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                "Pacientes",
+                l["Menu:Pacientes"],
+                icon: "fa fa-user",
+                url: "/Pacientes"
+            )
+        );
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                "Médicos",
+                l["Menu:Medicos"],
+                icon: "fa fa-user-nurse",
+                url: "/Medicos"
+            )
+        );
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                "Tratamentos",
+                l["Menu:Tratamentos"],
+                icon: "fa fa-flask",
+                url: "/Tratamentos"
+            )
+        );
+
 
         if (MultiTenancyConsts.IsEnabled)
         {

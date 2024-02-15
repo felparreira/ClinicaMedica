@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using ClinicaMedica.MultiTenancy;
 using Volo.Abp.AuditLogging;
@@ -14,6 +14,7 @@ using Volo.Abp.PermissionManagement.Identity;
 using Volo.Abp.PermissionManagement.OpenIddict;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
+using Volo.Abp.Caching;
 
 namespace ClinicaMedica;
 
@@ -30,7 +31,8 @@ namespace ClinicaMedica;
     typeof(AbpTenantManagementDomainModule),
     typeof(AbpEmailingModule)
 )]
-public class ClinicaMedicaDomainModule : AbpModule
+[DependsOn(typeof(AbpCachingModule))]
+    public class ClinicaMedicaDomainModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
