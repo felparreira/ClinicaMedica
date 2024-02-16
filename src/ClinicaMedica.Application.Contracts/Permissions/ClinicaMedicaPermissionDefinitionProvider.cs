@@ -10,7 +10,7 @@ public class ClinicaMedicaPermissionDefinitionProvider : PermissionDefinitionPro
     {
         var myGroup = context.AddGroup(ClinicaMedicaPermissions.GroupName);
         //Define your own permissions here. Example:
-        //myGroup.AddPermission(ClinicaMedicaPermissions.MyPermission1, L("Permission:MyPermission1"));
+        myGroup.AddPermission(ClinicaMedicaPermissions.MyPermission1, L("Permission:MyPermission1"));
     }
 
     private static LocalizableString L(string name)

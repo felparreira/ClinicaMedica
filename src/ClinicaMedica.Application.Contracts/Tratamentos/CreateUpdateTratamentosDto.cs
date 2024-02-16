@@ -7,18 +7,18 @@ namespace ClinicaMedica.Tratamentos;
 public class CreateUpdateTratamentosDto
 {
     [Required]
-    public Guid PacienteId { get; set; } = Guid.Empty;
+    public Guid PacienteId { get; set; }
     
     [Required]
-    public Guid MedicoId { get; set; } = Guid.Empty;
+    public Guid MedicoId { get; set; }
 
     [Required] 
-    public List<string> Sintomas { get; set; } = new List<string> { string.Empty }; 
+    public List<string> Sintomas { get; set; } 
 
     [Required] 
     [StringLength(128)] 
-    public string Diagnostico { get; set; } = string.Empty;
+    public string Diagnostico { get; set; }
 
-    [Required] 
-    public StatusTratamento Status { get; set; } = StatusTratamento.Pendente;
+    [Required]
+    public StatusTratamento Status { get; set; }
 }

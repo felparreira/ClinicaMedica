@@ -1,22 +1,42 @@
 using System;
+using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp.BlobStoring;
 using Volo.Abp.Domain.Repositories;
 
 namespace ClinicaMedica.Tratamentos;
 
-public class TratamentosAppService :
-    CrudAppService<
-        Tratamentos,
-        TratamentosDto,
-        Guid,
-        PagedAndSortedResultRequestDto,
-        CreateUpdateTratamentosDto>,
-    ITratamentosAppService
+public class TratamentosAppService : ApplicationService, ITratamentosAppService
 {
-    public TratamentosAppService(IRepository<Tratamentos, Guid> repository) :
-        base(repository)
+    private readonly IBlobContainer _blobContainer;
+    public TratamentosAppService(IBlobContainer blobContainer)
     {
-        
+        _blobContainer = blobContainer;
+    }
+
+    public async Task<TratamentosDto> CriarTratamento (CreateUpdateTratamentosDto input)
+    {
+        return null;
+    }
+    
+    public async Task<TratamentosDto> EditarTratamento (CreateUpdateTratamentosDto input)
+    {
+        return null;
+    }
+
+    public async Task<TratamentosDto> ListarTratamentos(CreateUpdateTratamentosDto input)
+    {
+        return null;
+    }
+    
+    public async Task<TratamentosDto> ExcluirTratamento(Guid id)
+    {
+        return null;
+    }
+    
+    public async Task AdicionarResultadoExame(byte[] arquivo)
+    {
+        await _blobContainer.SaveAsync("ResultadosExames", arquivo);
     }
 }

@@ -1,4 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using ClinicaMedica.MultiTenancy;
 using Volo.Abp.AuditLogging;
@@ -15,6 +15,8 @@ using Volo.Abp.PermissionManagement.OpenIddict;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.Caching;
+using Volo.Abp.BlobStoring;
+using Volo.Abp.BlobStoring.Minio;
 
 namespace ClinicaMedica;
 
@@ -32,6 +34,8 @@ namespace ClinicaMedica;
     typeof(AbpEmailingModule)
 )]
 [DependsOn(typeof(AbpCachingModule))]
+    [DependsOn(typeof(AbpBlobStoringModule))]
+    [DependsOn(typeof(AbpBlobStoringMinioModule))]
     public class ClinicaMedicaDomainModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -62,9 +66,25 @@ namespace ClinicaMedica;
         {
             options.IsEnabled = MultiTenancyConsts.IsEnabled;
         });
+        
+        Configure<AbpBlobStoringOptions>(options =>
+        {
+            options.Containers.ConfigureDefault(container =>
+            {
+                container.UseMinio(minio =>
+                {
+                    minio.EndPoint = "localhost:9000";
+                    minio.AccessKey = "minioadmin";
+                    minio.SecretKey = "minioadmin";
+                    minio.BucketName = "ResultadosExames";
+                });
+            });
+        });
+
 
 #if DEBUG
         context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
 #endif
     }
+    
 }

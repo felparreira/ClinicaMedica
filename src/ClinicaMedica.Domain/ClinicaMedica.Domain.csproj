@@ -13,6 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Volo.Abp.BlobStoring" Version="8.0.3" />
+    <PackageReference Include="Volo.Abp.BlobStoring.Minio" Version="8.0.3" />
     <PackageReference Include="Volo.Abp.Caching" Version="8.0.3" />
     <PackageReference Include="Volo.Abp.Emailing" Version="8.0.3" />
     <PackageReference Include="Volo.Abp.Identity.Domain" Version="8.0.3" />
@@ -24,6 +26,18 @@
     <PackageReference Include="Volo.Abp.SettingManagement.Domain" Version="8.0.3" />
     <PackageReference Include="Volo.Abp.OpenIddict.Domain" Version="8.0.3" />
     <PackageReference Include="Volo.Abp.PermissionManagement.Domain.OpenIddict" Version="8.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="BlobStorage\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="BlobStorage\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="BlobStorage\**" />
   </ItemGroup>
 
 </Project>
