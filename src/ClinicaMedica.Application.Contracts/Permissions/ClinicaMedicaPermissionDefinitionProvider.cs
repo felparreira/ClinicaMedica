@@ -4,13 +4,15 @@ using Volo.Abp.Localization;
 
 namespace ClinicaMedica.Permissions;
 
-public class ClinicaMedicaPermissionDefinitionProvider : PermissionDefinitionProvider
+public sealed class ClinicaMedicaPermissionDefinitionProvider : PermissionDefinitionProvider
 {
     public override void Define(IPermissionDefinitionContext context)
     {
-        var myGroup = context.AddGroup(ClinicaMedicaPermissions.GroupName);
+        var myGroup = context.AddGroup("Admin");
         //Define your own permissions here. Example:
-        myGroup.AddPermission(ClinicaMedicaPermissions.MyPermission1, L("Permission:MyPermission1"));
+        myGroup.AddPermission("Pacientes:Pacientes.Create", isEnabled: true);
+        myGroup.AddPermission("Permission:MyPermission2", isEnabled: true);
+        myGroup.AddPermission("Permission:MyPermission3", isEnabled: true);
     }
 
     private static LocalizableString L(string name)

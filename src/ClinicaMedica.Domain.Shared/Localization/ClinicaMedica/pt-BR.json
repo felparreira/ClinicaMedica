@@ -7,6 +7,24 @@
     "Menu:Tratamentos": "Tratamentos",
     "Welcome": "Seja bem-vindo!",
     "Login" : "Acessar",
-    "LongWelcomeMessage": "Bem-vindo ao sistema Clínica Médica. Este é um projeto inicial baseado no ABP framework, desenvolvido por Felipe Parreira."
+    "LongWelcomeMessage": "Bem-vindo ao sistema Clínica Médica. Este é um projeto inicial baseado no ABP framework, desenvolvido por Felipe Parreira.",
+    "ClinicaMedica.Pacientes": "Pacientes",
+    "ClinicaMedica.Pacientes.Create": "Criar Pacientes",
+    "ClinicaMedica.Pacientes.Update": "Editar Pacientes",
+    "ClinicaMedica.Pacientes.Get": "Buscar Pacientes",
+    "ClinicaMedica.Pacientes.GetAll": "Listar Todos os Pacientes",
+    "ClinicaMedica.Pacientes.Delete": "Apagar Pacientes",
+    "ClinicaMedica.Medicos": "Medicos",
+    "ClinicaMedica.Medicos.Create": "Criar Medicos",
+    "ClinicaMedica.Medicos.Update": "Editar Medicos",
+    "ClinicaMedica.Medicos.Get": "Buscar Medicos",
+    "ClinicaMedica.Medicos.GetAll": "Listar Todos os Medicos",
+    "ClinicaMedica.Medicos.Delete": "Apagar Medicos",
+    "ClinicaMedica.Tratamentos": "Tratamentos",
+    "ClinicaMedica.Tratamentos.Create": "Criar Tratamentos",
+    "ClinicaMedica.Tratamentos.Update": "Editar Tratamentos",
+    "ClinicaMedica.Tratamentos.Get": "Buscar Tratamentos",
+    "ClinicaMedica.Tratamentos.GetAll": "Listar Todos os Tratamentos",
+    "ClinicaMedica.Tratamentos.Delete": "Apagar Tratamentos"
   }
 }

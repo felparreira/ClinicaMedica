@@ -12,7 +12,7 @@ public class ClinicaMedicaMongoDbContext : AbpMongoDbContext
     
     public IMongoCollection<Medicos.Medicos> Medicos => Collection<Medicos.Medicos>(); 
     
-    public IMongoCollection<Tratamentos.Tratamentos> Tratamentos => Collection<Tratamentos.Tratamentos>(); 
+    public IMongoCollection<Tratamentos.TratamentosRepository> Tratamentos => Collection<Tratamentos.TratamentosRepository>(); 
 
     protected override void CreateModel(IMongoModelBuilder modelBuilder)
     {

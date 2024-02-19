@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.BlobStoring;
@@ -7,6 +8,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace ClinicaMedica.Tratamentos;
 
+[Authorize]
 public class TratamentosAppService : ApplicationService, ITratamentosAppService
 {
     private readonly IBlobContainer _blobContainer;
@@ -39,4 +41,5 @@ public class TratamentosAppService : ApplicationService, ITratamentosAppService
     {
         await _blobContainer.SaveAsync("ResultadosExames", arquivo);
     }
+    
 }
