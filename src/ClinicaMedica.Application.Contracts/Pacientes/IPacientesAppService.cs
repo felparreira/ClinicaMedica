@@ -6,10 +6,10 @@ namespace ClinicaMedica.Pacientes;
 
 public interface IPacientesAppService :
     ICrudAppService<
-        PacientesDto,
+        PacienteDto,
         Guid,
         PagedAndSortedResultRequestDto,
-        CreateUpdatePacientesDto>
+        CreateUpdatePacienteDto>
 {
     
 }

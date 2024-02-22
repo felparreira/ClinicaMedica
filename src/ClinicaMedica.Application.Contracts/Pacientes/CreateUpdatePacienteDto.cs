@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ClinicaMedica.Pacientes;
 
-public class CreateUpdatePacientesDto : IValidatableObject
+public class CreateUpdatePacienteDto : IValidatableObject
 {
     [Required] 
     [StringLength(128)] 

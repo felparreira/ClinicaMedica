@@ -1,9 +1,9 @@
 using System;
-using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.Application.Dtos;
 
 namespace ClinicaMedica.Medicos;
 
-public class Medicos : AuditedAggregateRoot<Guid>
+public class MedicoDto : AuditedEntityDto<Guid>
 {
     public string Nome { get; set; }
 

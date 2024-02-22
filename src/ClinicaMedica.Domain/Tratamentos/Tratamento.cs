@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Entities.Auditing;
 
 namespace ClinicaMedica.Tratamentos;
 
-public class TratamentosDto : AuditedEntityDto<Guid>
+public class Tratamento : AuditedAggregateRoot<Guid>
 {
     public Guid PacienteId { get; set; }
     
@@ -15,4 +15,11 @@ public class TratamentosDto : AuditedEntityDto<Guid>
     public string Diagnostico { get; set; }
     
     public StatusTratamento Status { get; set; }
+
+    public Tratamento(Guid pacienteId, Guid medicoId, List<string> sintomas)
+    {
+        PacienteId = pacienteId;
+        MedicoId = medicoId;
+        Sintomas = sintomas;
+    }
 }

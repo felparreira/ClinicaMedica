@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using ClinicaMedica.MultiTenancy;
 using Volo.Abp.AuditLogging;
@@ -17,6 +17,7 @@ using Volo.Abp.TenantManagement;
 using Volo.Abp.Caching;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.BlobStoring.Minio;
+using Volo.Abp.Caching.StackExchangeRedis;
 
 namespace ClinicaMedica;
 
@@ -36,6 +37,7 @@ namespace ClinicaMedica;
 [DependsOn(typeof(AbpCachingModule))]
     [DependsOn(typeof(AbpBlobStoringModule))]
     [DependsOn(typeof(AbpBlobStoringMinioModule))]
+    [DependsOn(typeof(AbpCachingStackExchangeRedisModule))]
     public class ClinicaMedicaDomainModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

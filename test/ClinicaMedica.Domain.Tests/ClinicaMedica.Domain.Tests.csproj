@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\ClinicaMedica.Application.Contracts\ClinicaMedica.Application.Contracts.csproj" />
     <ProjectReference Include="..\..\src\ClinicaMedica.Domain\ClinicaMedica.Domain.csproj" />
     <ProjectReference Include="..\ClinicaMedica.TestBase\ClinicaMedica.TestBase.csproj" />
   </ItemGroup>

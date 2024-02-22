@@ -9,9 +9,9 @@ namespace ClinicaMedica;
 
 public class ClinicaMedicaDataSeederContributor : IDataSeedContributor, ITransientDependency
 {
-    private readonly IRepository<Pacientes.Pacientes, Guid> _pacientesRepository;
+    private readonly IRepository<Paciente, Guid> _pacientesRepository;
 
-    public ClinicaMedicaDataSeederContributor(IRepository<Pacientes.Pacientes, Guid> pacientesRepository)
+    public ClinicaMedicaDataSeederContributor(IRepository<Paciente, Guid> pacientesRepository)
     {
         _pacientesRepository = pacientesRepository;
     }
@@ -21,23 +21,26 @@ public class ClinicaMedicaDataSeederContributor : IDataSeedContributor, ITransie
         if (await _pacientesRepository.GetCountAsync() <= 0)
         {
             await _pacientesRepository.InsertAsync(
-                new Pacientes.Pacientes
-                {
-                    Nome = "Pedro Augusto de Lima",
-                    Sexo = Sexo.Masculino,
-                    DataNascimento = new DateTime(1989, 3, 28),
-                    Telefone = "(31)98934-2342"
-                },
+                new Paciente
+                ( 
+                    "Pedro Augusto",
+                    "de Lima",
+                    new DateTime(1989, 3, 28),
+                    Sexo.Masculino,
+                    "(31)98934-2342"
+                    )
+                ,
                 autoSave: true
             );
             await _pacientesRepository.InsertAsync(
-                new Pacientes.Pacientes
-                {
-                    Nome = "Fernanda Pereira Souza",
-                    Sexo = Sexo.Feminino,
-                    DataNascimento = new DateTime(1992, 9, 3),
-                    Telefone = "(31)96372-9856"
-                },
+                new Paciente
+                (
+                    "Fernanda",
+                    "Pereira Souza",
+                    new DateTime(1992, 9, 3),
+                    Sexo.Feminino,
+                    "(31)96372-9856"
+                ),
                 autoSave: true
             );
         }

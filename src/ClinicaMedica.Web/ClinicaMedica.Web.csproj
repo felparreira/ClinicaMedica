@@ -18,9 +18,15 @@
   <ItemGroup>
     <Compile Remove="Logs\**" />
     <Content Remove="Logs\**" />
+    <Content Include="Pages\Pacientes\Index.cshtml" />
+    <Content Include="Pages\Pacientes\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <EmbeddedResource Remove="Logs\**" />
     <None Remove="Logs\**" />
     <Content Remove="Pages\Pacientes\index.cshtml" />
+    <None Remove="Pages\Medicos\Index.js" />
   </ItemGroup>
 
   <ItemGroup>

@@ -9,13 +9,13 @@ public class ClinicaMedicaApplicationAutoMapperProfile : Profile
 {
     public ClinicaMedicaApplicationAutoMapperProfile()
     {
-        CreateMap<Pacientes.Pacientes, PacientesDto>();
-        CreateMap<CreateUpdatePacientesDto, Pacientes.Pacientes>();
+        CreateMap<Pacientes.Paciente, PacienteDto>();
+        CreateMap<CreateUpdatePacienteDto, Pacientes.Paciente>();
         
-        CreateMap<Medicos.Medicos, MedicosDto>();
-        CreateMap<CreateUpdateMedicosDto, Medicos.Medicos>();
+        CreateMap<Medico, MedicoDto>();
+        CreateMap<CreateUpdateMedicoDto, Medico>();
         
-        CreateMap<Tratamentos.Tratamentos, TratamentosDto>();
-        CreateMap<CreateUpdateTratamentosDto, Tratamentos.Tratamentos>();
+        CreateMap<Tratamentos.Tratamento, TratamentoDto>();
+        CreateMap<CreateUpdateTratamentoDto, Tratamentos.Tratamento>();
     }
 }

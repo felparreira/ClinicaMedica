@@ -25,7 +25,10 @@ using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
 using Volo.Abp.AutoMapper;
+using Volo.Abp.Data;
+using Volo.Abp.DependencyInjection;
 using Volo.Abp.FeatureManagement;
+using Volo.Abp.Identity;
 using Volo.Abp.Identity.Web;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
@@ -35,6 +38,9 @@ using Volo.Abp.SettingManagement.Web;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.TenantManagement.Web;
 using Volo.Abp.OpenIddict;
+using Volo.Abp.PermissionManagement;
+using Volo.Abp.PermissionManagement.HttpApi;
+using Volo.Abp.Threading;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
@@ -53,7 +59,9 @@ namespace ClinicaMedica.Web;
     typeof(AbpAspNetCoreMvcUiLeptonXLiteThemeModule),
     typeof(AbpTenantManagementWebModule),
     typeof(AbpAspNetCoreSerilogModule),
-    typeof(AbpSwashbuckleModule)
+    typeof(AbpSwashbuckleModule),
+    typeof(AbpPermissionManagementApplicationModule),
+    typeof(AbpPermissionManagementHttpApiModule)
     )]
 public class ClinicaMedicaWebModule : AbpModule
 {
@@ -236,5 +244,22 @@ public class ClinicaMedicaWebModule : AbpModule
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
         app.UseConfiguredEndpoints();
+        
+        SeedData(context);
+    }
+    private void SeedData(IServiceProviderAccessor context)
+    {
+        AsyncHelper.RunSync(async () =>
+        {
+            var adminEmail = "tech@educbank.com.br";
+            var adminPassword = "1q2w3E*";
+
+            using var scope = context.ServiceProvider.CreateScope();
+            await scope.ServiceProvider.GetRequiredService<IDataSeeder>().SeedAsync(
+                new DataSeedContext()
+                    .WithProperty(IdentityDataSeedContributor.AdminEmailPropertyName, adminEmail)
+                    .WithProperty(IdentityDataSeedContributor.AdminPasswordPropertyName, adminPassword)
+            );
+        });
     }
 }

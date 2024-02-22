@@ -1,4 +1,7 @@
-﻿using MongoDB.Driver;
+﻿using ClinicaMedica.Medicos;
+using ClinicaMedica.Pacientes;
+using ClinicaMedica.Tratamentos;
+using MongoDB.Driver;
 using Volo.Abp.Data;
 using Volo.Abp.MongoDB;
 
@@ -8,11 +11,11 @@ namespace ClinicaMedica.MongoDB;
 public class ClinicaMedicaMongoDbContext : AbpMongoDbContext
 {
     
-    public IMongoCollection<Pacientes.Pacientes> Pacientes => Collection<Pacientes.Pacientes>(); 
+    public IMongoCollection<Paciente> Pacientes => Collection<Paciente>(); 
     
-    public IMongoCollection<Medicos.Medicos> Medicos => Collection<Medicos.Medicos>(); 
+    public IMongoCollection<Medico> Medicos => Collection<Medico>(); 
     
-    public IMongoCollection<Tratamentos.TratamentosRepository> Tratamentos => Collection<Tratamentos.TratamentosRepository>(); 
+    public IMongoCollection<Tratamento> Tratamentos => Collection<Tratamento>(); 
 
     protected override void CreateModel(IMongoModelBuilder modelBuilder)
     {

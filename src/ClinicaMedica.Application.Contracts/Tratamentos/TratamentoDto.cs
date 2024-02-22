@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.Application.Dtos;
 
 namespace ClinicaMedica.Tratamentos;
 
-public class Tratamentos : AuditedAggregateRoot<Guid>
+public class TratamentoDto : AuditedEntityDto<Guid>
 {
     public Guid PacienteId { get; set; }
     

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ClinicaMedica.Medicos;
 
-public class CreateUpdateMedicosDto
+public class CreateUpdateMedicoDto
 {
     [Required] [StringLength(128)] public string Nome { get; set; }
 

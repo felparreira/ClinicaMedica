@@ -6,10 +6,10 @@ namespace ClinicaMedica.Medicos;
 
 public interface IMedicoAppServices :
     ICrudAppService<
-        MedicosDto,
+        MedicoDto,
         Guid,
         PagedAndSortedResultRequestDto,
-        CreateUpdateMedicosDto>
+        CreateUpdateMedicoDto>
 
 {
 }
