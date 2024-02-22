@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using ClinicaMedica.MultiTenancy;
+using Minio.DataModel;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Emailing;
@@ -79,6 +80,7 @@ namespace ClinicaMedica;
                     minio.AccessKey = "minioadmin";
                     minio.SecretKey = "minioadmin";
                     minio.BucketName = "ResultadosExames";
+                    minio.CreateBucketIfNotExists = true;
                 });
             });
         });

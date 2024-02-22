@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using ClinicaMedica.Exceptions;
 using ClinicaMedica.Localization;
 using ClinicaMedica.Medicos;
 using ClinicaMedica.Pacientes;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Distributed;
 using Volo.Abp;
+using Volo.Abp.BlobStoring;
 using Volo.Abp.Caching;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
@@ -20,14 +23,16 @@ public class TratamentoManager : DomainService
   private readonly ITratamentoRepository _tratamentosRepository;
   private readonly IRepository<Medico, Guid> _medicoRepository;
   private readonly IRepository<Paciente, Guid> _pacienteRepository;
+  private readonly IBlobContainer<TratamentoContainer> _blobContainer;
   private readonly IDistributedCache<TratamentoCacheItem?, string> _cache;
 
-  public TratamentoManager(ITratamentoRepository tratamentosRepository, IRepository<Paciente, Guid> pacienteRepository, IRepository<Medico, Guid> medicoRepository, IDistributedCache<TratamentoCacheItem?, string> cache)
+  public TratamentoManager(ITratamentoRepository tratamentosRepository, IRepository<Paciente, Guid> pacienteRepository, IRepository<Medico, Guid> medicoRepository, IDistributedCache<TratamentoCacheItem?, string> cache, IBlobContainer<TratamentoContainer> blobContainer)
   {
     _tratamentosRepository = tratamentosRepository;
     _pacienteRepository = pacienteRepository;
     _medicoRepository = medicoRepository;
     _cache = cache;
+    _blobContainer = blobContainer;
   }
 
   public async Task<Tratamento> Criar(Guid medicoId, Guid pacienteId, List<string> sintomas)
@@ -53,11 +58,6 @@ public class TratamentoManager : DomainService
     await _tratamentosRepository.InsertAsync(tratamento);
     
     return tratamento;
-  }
-  
-  private static LocalizableString L(string name)
-  {
-    return LocalizableString.Create<ClinicaMedicaResource>(name);
   }
   
   public async Task<TratamentoCacheItem?> GetTratamentoById(Guid id)
@@ -89,5 +89,25 @@ public class TratamentoManager : DomainService
     };
 
     return tratamentoCacheItem;
+  }
+
+  public async Task AdicionarArquivoTratamento(Guid id, IFormFile arquivo, string nomeArquivo)
+  {
+    //var tratamento = await _tratamentosRepository.FindAsync(t=>t.Id == id);
+    var tratamento = await _tratamentosRepository.FindAsync(tratamento => tratamento.Id == id);
+    var arquivoTratamento = new arquivoTratamento(nomeArquivo);
+
+    var ms = new MemoryStream();
+
+    arquivo.CopyTo(ms);
+    var fileBytes = ms.ToArray();
+    
+    await _blobContainer.SaveAsync(nomeArquivo, fileBytes, true);
+    
+  }
+  
+  private static LocalizableString L(string name)
+  {
+    return LocalizableString.Create<ClinicaMedicaResource>(name);
   }
 }

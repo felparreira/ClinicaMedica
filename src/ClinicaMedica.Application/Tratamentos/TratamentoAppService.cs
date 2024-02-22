@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using ClinicaMedica.Medicos;
 using ClinicaMedica.Pacientes;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.BlobStoring;
@@ -14,12 +15,11 @@ namespace ClinicaMedica.Tratamentos;
 [Authorize]
 public class TratamentoAppService : ApplicationService, ITratamentoAppService
 {
-    private readonly IBlobContainer _blobContainer;
+    
     private readonly TratamentoManager _tratamentoManager;
     private readonly ITratamentoRepository _tratamentoRepository;
-    public TratamentoAppService(IBlobContainer blobContainer, TratamentoManager tratamentoManager, ITratamentoRepository tratamentoRepository)
+    public TratamentoAppService(TratamentoManager tratamentoManager, ITratamentoRepository tratamentoRepository)
     {
-        _blobContainer = blobContainer;
         _tratamentoManager = tratamentoManager;
         _tratamentoRepository = tratamentoRepository;
     }
@@ -30,7 +30,7 @@ public class TratamentoAppService : ApplicationService, ITratamentoAppService
         return ObjectMapper.Map<Tratamento,TratamentoDto>(tratamento);
     }
 
-    public async Task<List<TratamentoDto>> GetAll(CreateUpdateTratamentoDto input)
+    public async Task<List<TratamentoDto>> GetAll(PagedAndSortedResultRequestDto input)
     {
         var tratamentos = await _tratamentoRepository.GetListAsync();
         
@@ -42,9 +42,8 @@ public class TratamentoAppService : ApplicationService, ITratamentoAppService
         await _tratamentoRepository.DeleteAsync(t=> t.Id == id);
     }
     
-    public async Task AdicionarResultadoExame(byte[] arquivo)
+    public async Task AdicionarArquivoTratamento(Guid id, IFormFile arquivo, string nomeArquivo)
     {
-        await _blobContainer.SaveAsync("ResultadosExames", arquivo);
+        await _tratamentoManager.AdicionarArquivoTratamento(id, arquivo, nomeArquivo);
     }
-    
 }
