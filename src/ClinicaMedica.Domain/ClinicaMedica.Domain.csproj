@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ClinicaMedica.Application.Contracts\ClinicaMedica.Application.Contracts.csproj" />
     <ProjectReference Include="..\ClinicaMedica.Domain.Shared\ClinicaMedica.Domain.Shared.csproj" />
   </ItemGroup>
 
@@ -31,6 +32,7 @@
 
   <ItemGroup>
     <Compile Remove="BlobStorage\**" />
+    <Compile Remove="Tratamentos\Events\TratamentoEventHandler.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -28,4 +28,21 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\ClinicaMedica.Domain\ClinicaMedica.Domain.csproj" />
+    <ProjectReference Include="..\..\src\ClinicaMedica.MongoDB\ClinicaMedica.MongoDB.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Mock\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Mock\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Mock\**" />
+  </ItemGroup>
+
 </Project>

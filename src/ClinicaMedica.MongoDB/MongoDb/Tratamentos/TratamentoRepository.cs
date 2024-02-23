@@ -5,7 +5,7 @@ using Volo.Abp.MongoDB;
 
 namespace ClinicaMedica.MongoDB.Tratamentos;
 
-public class TratamentoRepository : MongoDbRepository<ClinicaMedicaMongoDbContext, ClinicaMedica.Tratamentos.Tratamento, Guid>, ITratamentoRepository
+public class TratamentoRepository : MongoDbRepository<ClinicaMedicaMongoDbContext, Tratamento, Guid>, ITratamentoRepository
     {
         public TratamentoRepository(IMongoDbContextProvider<ClinicaMedicaMongoDbContext> dbContextProvider)
              : base(dbContextProvider)

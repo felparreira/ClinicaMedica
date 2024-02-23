@@ -11,7 +11,6 @@ using Microsoft.Extensions.Caching.Distributed;
 using Volo.Abp;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.Caching;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 using Volo.Abp.Localization;
@@ -24,9 +23,9 @@ public class TratamentoManager : DomainService
   private readonly IRepository<Medico, Guid> _medicoRepository;
   private readonly IRepository<Paciente, Guid> _pacienteRepository;
   private readonly IBlobContainer<TratamentoContainer> _blobContainer;
-  private readonly IDistributedCache<TratamentoCacheItem?, string> _cache;
+  private readonly IDistributedCache<TratamentoCacheItem, string> _cache;
 
-  public TratamentoManager(ITratamentoRepository tratamentosRepository, IRepository<Paciente, Guid> pacienteRepository, IRepository<Medico, Guid> medicoRepository, IDistributedCache<TratamentoCacheItem?, string> cache, IBlobContainer<TratamentoContainer> blobContainer)
+  public TratamentoManager(ITratamentoRepository tratamentosRepository, IRepository<Paciente, Guid> pacienteRepository, IRepository<Medico, Guid> medicoRepository, IDistributedCache<TratamentoCacheItem, string> cache, IBlobContainer<TratamentoContainer> blobContainer)
   {
     _tratamentosRepository = tratamentosRepository;
     _pacienteRepository = pacienteRepository;
@@ -93,9 +92,9 @@ public class TratamentoManager : DomainService
 
   public async Task AdicionarArquivoTratamento(Guid id, IFormFile arquivo, string nomeArquivo)
   {
-    //var tratamento = await _tratamentosRepository.FindAsync(t=>t.Id == id);
-    var tratamento = await _tratamentosRepository.FindAsync(tratamento => tratamento.Id == id);
-    var arquivoTratamento = new arquivoTratamento(nomeArquivo);
+    var tratamento = await _tratamentosRepository.FindAsync(t=>t.Id == id);
+    
+    var arquivoTratamento = new ArquivoTratamento(nomeArquivo);
 
     var ms = new MemoryStream();
 

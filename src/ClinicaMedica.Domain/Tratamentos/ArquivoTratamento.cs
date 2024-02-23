@@ -1,8 +1,8 @@
 namespace ClinicaMedica.Tratamentos;
 
-public class arquivoTratamento
+public class ArquivoTratamento
 {
-    public arquivoTratamento(string nomeArquivo)
+    public ArquivoTratamento(string nomeArquivo)
     {
         NomeArquivo = nomeArquivo;
     }

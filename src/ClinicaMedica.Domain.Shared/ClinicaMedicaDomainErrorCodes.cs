@@ -1,4 +1,6 @@
-﻿namespace ClinicaMedica;
+﻿using Volo.Abp.ExceptionHandling;
+
+namespace ClinicaMedica;
 
 public static class ClinicaMedicaDomainErrorCodes
 {

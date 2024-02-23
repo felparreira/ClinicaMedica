@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using ClinicaMedica.MongoDB.Tratamentos;
+using ClinicaMedica.Tratamentos;
+using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp;
 using Volo.Abp.Authorization;
 using Volo.Abp.Autofac;
@@ -19,6 +21,7 @@ public class ClinicaMedicaTestBaseModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        context.Services.AddScoped<ITratamentoRepository, TratamentoRepository>();
         Configure<AbpBackgroundJobOptions>(options =>
         {
             options.IsJobExecutionEnabled = false;
@@ -29,7 +32,7 @@ public class ClinicaMedicaTestBaseModule : AbpModule
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
     {
-        SeedTestData(context);
+        //SeedTestData(context);
     }
 
     private static void SeedTestData(ApplicationInitializationContext context)
