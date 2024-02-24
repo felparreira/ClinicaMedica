@@ -1,14 +1,14 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Volo.Abp.Application.Dtos;
 
 namespace ClinicaMedica.Medicos;
 
-public class CreateUpdateMedicoDto
+public class CreateUpdateMedicoDto : PagedAndSortedResultRequestDto
 {
     [Required] [StringLength(128)] public string Nome { get; set; }
-
-    [Required] 
-    [DataType(DataType.Date)] public DateTime DataNascimento { get; set; }
+    
+    [Required] [StringLength(128)] public string sobreNome { get; set; }
 
     [Required] 
     public Especialidade Especialidade { get; set; }

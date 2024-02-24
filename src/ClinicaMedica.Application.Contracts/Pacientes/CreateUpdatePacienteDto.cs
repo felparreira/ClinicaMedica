@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Volo.Abp.Application.Dtos;
 
 namespace ClinicaMedica.Pacientes;
 
-public class CreateUpdatePacienteDto : IValidatableObject
+public class CreateUpdatePacienteDto : PagedAndSortedResultRequestDto, IValidatableObject
 {
     [Required] 
     [StringLength(128)] 

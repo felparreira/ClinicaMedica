@@ -7,7 +7,7 @@ public class MedicoDto : AuditedEntityDto<Guid>
 {
     public string Nome { get; set; }
 
-    public DateTime DataNascimento { get; set; }
+    public string sobreNome { get; set; }
 
     public Especialidade Especialidade { get; set; }
 

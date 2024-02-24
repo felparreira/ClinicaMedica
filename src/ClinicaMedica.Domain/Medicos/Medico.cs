@@ -8,16 +8,16 @@ public class Medico : AuditedAggregateRoot<Guid>
 
     public string Nome { get; set; }
 
-    public DateTime DataNascimento { get; set; }
+    public string SobreNome { get; set; }
 
     public Especialidade Especialidade { get; set; }
 
     public string Telefone { get; set; }
 
-    public Medico(string nome, DateTime dataNascimento, Especialidade especialidade, string telefone)
+    public Medico(string nome, string sobreNome, Especialidade especialidade, string telefone)
     {
         Nome = nome;
-        DataNascimento = dataNascimento;
+        SobreNome = sobreNome;
         Especialidade = especialidade;
         Telefone = telefone;
     }
