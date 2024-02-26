@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ClinicaMedica.Exceptions;
 using ClinicaMedica.Medicos;
 using ClinicaMedica.MongoDB.Tratamentos;
 using ClinicaMedica.Pacientes;
-using NSubstitute;
 using Shouldly;
 using Volo.Abp;
-using Volo.Abp.Domain.Repositories;
 using Xunit;
 
 namespace ClinicaMedica.Tratamentos;
@@ -16,53 +15,80 @@ public sealed class TratamentoManagerTest : ClinicaMedicaDomainTestBase<ClinicaM
 {
     private readonly ITratamentoRepository _tratamentosRepository;
     private readonly TratamentoManager _tratamentoManager;
-    private readonly IMedicoAppServices _medicoAppServices;
-    private readonly IPacientesAppService _pacientesAppService;
+    private readonly MedicoManager _medicoManager;
+    private readonly PacienteManager _pacienteManager;
 
 
     public TratamentoManagerTest()
     {
         _tratamentosRepository = GetRequiredService<ITratamentoRepository>();
-        _medicoAppServices = GetRequiredService<IMedicoAppServices>();
-        _pacientesAppService = GetRequiredService<IPacientesAppService>();
+        _medicoManager = GetRequiredService<MedicoManager>();
+        _pacienteManager = GetRequiredService<PacienteManager>();
         _tratamentoManager = GetRequiredService<TratamentoManager>();
     }
 
     [Fact]
-    public async Task ShouldCreateATreatment()
+    public async Task DeveCriarUmTratamento()
     {
-        var pacienteId = Guid.NewGuid()
-            
-        var fakePaciente = Substitute.For<IPacientesAppService>();
-        fakePaciente.GetListAsync(pacienteId).Returns();
+        var pacienteId = Guid.NewGuid();
+        string nomePaciente = "Felipe";
+        string sobreNomePaciente = "Parreira";
+        int idade = 33;
+        string telefonePaciente = "31 99606-6790";
         
-        var paciente = await _pacientesAppService.CreateAsync(new CreateUpdatePacienteDto()
-        {
-            DataNascimento = DateTime.Now,
-            Nome = "Felipe",
-            Sexo = Sexo.Masculino,
-            SobreNome = "Parreira",
-            Telefone = "31 99999-9999"
-        });
+        var paciente = await _pacienteManager.Criar(pacienteId, nomePaciente, sobreNomePaciente, Sexo.Masculino, idade, telefonePaciente);
+
+        var medicoId = Guid.NewGuid();
+        string nomeMedico = "Carlos";
+        string sobreNomeMedico = "Teixeira";
+        string telefoneMedico = "31 99606-6790";
+        string diagnostico = "Hipertensão arterial";
         
-        var medico = await _medicoAppServices.CreateAsync(new CreateUpdateMedicoDto()
-        {
-            DataNascimento = DateTime.Now,
-            Nome = "Felipe",
-            Especialidade = Especialidade.Dermatologista,
-            Telefone = "31 99999-9999"
-        });
-        
+        var medico = await _medicoManager.Criar(medicoId, nomeMedico, sobreNomeMedico, Especialidade.Ortopedista, telefoneMedico);
+ 
         var tratamento = await _tratamentoManager.Criar(medico.Id, paciente.Id, new List<string>
         {
-            "Dor na cabeça"
-        });
+            "Dor de cabeça"
+        },
+            diagnostico);
 
         var tratamentoPersisted = await _tratamentosRepository.FindAsync(tratamento.Id);
         
-        tratamentoPersisted.MedicoId.ShouldBe(medico.Id);
-        tratamentoPersisted.PacienteId.ShouldBe(paciente.Id);
-        tratamentoPersisted.Sintomas.ShouldContain("Dor na cabeça");
+        tratamentoPersisted?.MedicoId.ShouldBe(medico.Id);
+        tratamentoPersisted?.PacienteId.ShouldBe(paciente.Id);
+        tratamentoPersisted?.Sintomas.ShouldContain("Dor na cabeça");
+        tratamentoPersisted?.Diagnostico.ShouldBe(diagnostico);
+    }
+    
+    [Fact]
+    public async Task NaoDeveCriarUmTratamento()
+    {
+        var pacienteId = Guid.NewGuid();
+        string nomePaciente = "Ricardo";
+        string sobreNomePaciente = "Moura";
+        int idade = 21;
+        string telefonePaciente = "31 92833-3452";
+        
+        var paciente = await _pacienteManager.Criar(pacienteId, nomePaciente, sobreNomePaciente, Sexo.Masculino, idade, telefonePaciente);
+
+        var medicoId = Guid.NewGuid();
+        string nomeMedico = "Carlos";
+        string sobreNomeMedico = "Teixeira";
+        string telefoneMedico = "31 99606-6790";
+        
+        var medico = await _medicoManager.Criar(medicoId, nomeMedico, sobreNomeMedico, Especialidade.Ginecologista, telefoneMedico);
+ 
+        string diagnostico = "Hipertensão arterial";
+        
+        var tratamento = await _tratamentoManager.Criar(medico.Id, paciente.Id, new List<string>
+            {
+                "Dor de cabeça"
+            },
+            diagnostico);
+
+        var tratamentoPersisted = await _tratamentosRepository.FindAsync(tratamento.Id);
+
+        throw new BusinessException(ExceptionConsts.TratamentoManager.EspecialidadeNaoPermitida);
     }
 
 }

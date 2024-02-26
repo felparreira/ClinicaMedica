@@ -28,7 +28,7 @@ public class TratamentoAppService : ApplicationService, ITratamentoAppService
     [Authorize(ClinicaMedicaPermissions.Tratamentos.Create)]
     public async Task<TratamentoDto> Create(CreateUpdateTratamentoDto input)
     {
-        var tratamento = await _tratamentoManager.Criar(input.MedicoId, input.PacienteId, input.Sintomas);
+        var tratamento = await _tratamentoManager.Criar(input.MedicoId, input.PacienteId, input.Sintomas, input.Diagnostico);
         return ObjectMapper.Map<Tratamento,TratamentoDto>(tratamento);
     }
 
@@ -56,5 +56,4 @@ public class TratamentoAppService : ApplicationService, ITratamentoAppService
             Id = id
         });
     }
-    
 }

@@ -9,17 +9,17 @@ public class Paciente : AuditedAggregateRoot<Guid>
     
     public string SobreNome { get; set; }
 
-    public DateTime DataNascimento { get; set; }
+    public int Idade { get; set; }
 
     public Sexo Sexo { get; set; }
 
     public string Telefone { get; set; }
 
-    public Paciente(string nome, string sobreNome, DateTime dataNascimento, Sexo sexo, string telefone)
+    public Paciente(string nome, string sobreNome, int idade, Sexo sexo, string telefone)
     {
         Nome = nome;
         SobreNome = sobreNome;
-        DataNascimento = dataNascimento;
+        Idade = idade;
         Sexo = sexo;
         Telefone = telefone;
     }

@@ -9,7 +9,7 @@ public class PacienteDto : AuditedEntityDto<Guid>
     
     public string SobreNome { get; set; }
 
-    public DateTime DataNascimento { get; set; }
+    public int Idade { get; set; }
 
     public Sexo Sexo { get; set; }
 

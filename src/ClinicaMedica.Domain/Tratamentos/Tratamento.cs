@@ -16,10 +16,11 @@ public class Tratamento : AuditedAggregateRoot<Guid>
     
     public StatusTratamento Status { get; set; }
 
-    public Tratamento(Guid pacienteId, Guid medicoId, List<string> sintomas)
+    public Tratamento(Guid pacienteId, Guid medicoId, List<string> sintomas, string diagnostico)
     {
         PacienteId = pacienteId;
         MedicoId = medicoId;
         Sintomas = sintomas;
+        Diagnostico = diagnostico;
     }
 }

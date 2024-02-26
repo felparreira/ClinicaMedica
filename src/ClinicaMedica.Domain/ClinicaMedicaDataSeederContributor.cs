@@ -25,7 +25,7 @@ public class ClinicaMedicaDataSeederContributor : IDataSeedContributor, ITransie
                 ( 
                     "Pedro Augusto",
                     "de Lima",
-                    new DateTime(1989, 3, 28),
+                    28,
                     Sexo.Masculino,
                     "(31)98934-2342"
                     )
@@ -37,7 +37,7 @@ public class ClinicaMedicaDataSeederContributor : IDataSeedContributor, ITransie
                 (
                     "Fernanda",
                     "Pereira Souza",
-                    new DateTime(1992, 9, 3),
+                    15,
                     Sexo.Feminino,
                     "(31)96372-9856"
                 ),

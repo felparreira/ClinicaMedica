@@ -1,10 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Volo.Abp.Application.Dtos;
 
 namespace ClinicaMedica.Medicos;
 
-public class CreateUpdateMedicoDto : PagedAndSortedResultRequestDto
+public class CreateUpdateMedicoDto : PagedAndSortedResultRequestDto, IValidatableObject
 {
     [Required] [StringLength(128)] public string Nome { get; set; }
     
@@ -16,4 +17,12 @@ public class CreateUpdateMedicoDto : PagedAndSortedResultRequestDto
     [Required] 
     [StringLength(32)]
     public string Telefone { get; set; }
+    
+    public new IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        if (Nome == sobreNome)
+        {
+            yield return new ValidationResult("Nome e Sobrenome não podem ser iguais!", new[] { "Nome" });
+        }
+    }
 }

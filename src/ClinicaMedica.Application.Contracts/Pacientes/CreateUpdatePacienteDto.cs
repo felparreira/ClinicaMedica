@@ -18,17 +18,22 @@ public class CreateUpdatePacienteDto : PagedAndSortedResultRequestDto, IValidata
     [Required] public Sexo Sexo { get; set; }
 
     [Required]
-    [DataType(DataType.Date)]
-    public DateTime DataNascimento { get; set; }
+    [MaxLength(3)]
+    public int Idade { get; set; }
     
     [StringLength(32)]
     public string Telefone { get; set; }
 
-    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    public new IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
         if (Nome == SobreNome)
         {
             yield return new ValidationResult("Nome e Sobrenome não podem ser iguais!", new[] { "Nome" });
+        }
+        
+        if (Idade <= 0)
+        {
+            yield return new ValidationResult("Idade não pode ser menor ou igual a zero!", new[] { "Idade" });
         }
     }
 }

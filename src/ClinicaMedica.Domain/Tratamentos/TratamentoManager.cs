@@ -34,7 +34,7 @@ public class TratamentoManager : DomainService
     _blobContainer = blobContainer;
   }
 
-  public async Task<Tratamento> Criar(Guid medicoId, Guid pacienteId, List<string> sintomas)
+  public async Task<Tratamento> Criar(Guid medicoId, Guid pacienteId, List<string> sintomas, string diagnostico)
   {
     if (sintomas == null || sintomas.Count == 0)
     {
@@ -46,14 +46,24 @@ public class TratamentoManager : DomainService
     {
       throw new BusinessException(ExceptionConsts.TratamentoManager.MedicoInexistente);
     }
-
+    
     var paciente = await _pacienteRepository.FindAsync(p => p.Id == pacienteId);
     if (paciente == null)
     {
       throw new Exception(ExceptionConsts.TratamentoManager.PacienteInexistente);
     }
     
-    var tratamento = new Tratamento(pacienteId, medicoId, sintomas);
+    if (paciente.Sexo != Sexo.Feminino && medico.Especialidade == Especialidade.Ginecologista)
+    {
+      throw new BusinessException(ExceptionConsts.TratamentoManager.EspecialidadeNaoPermitida);
+    }
+
+    if (paciente.Idade > 12 && medico.Especialidade == Especialidade.Pediatra)
+    {
+      throw new BusinessException(ExceptionConsts.TratamentoManager.EspecialidadeNaoPermitida);
+    }
+    
+    var tratamento = new Tratamento(pacienteId, medicoId, sintomas, diagnostico);
     await _tratamentosRepository.InsertAsync(tratamento);
     
     return tratamento;

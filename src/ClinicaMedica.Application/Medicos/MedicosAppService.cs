@@ -21,6 +21,7 @@ public class MedicosAppService : ApplicationService, IMedicoAppServices
         _medicoRepository = medicoRepository;
     }
     
+    [Authorize(ClinicaMedicaPermissions.Medicos.Create)]
     public async Task<MedicoDto> Create(CreateUpdateMedicoDto input)
     {
 
@@ -28,12 +29,15 @@ public class MedicosAppService : ApplicationService, IMedicoAppServices
         return ObjectMapper.Map<Medico, MedicoDto>(paciente);
     }
 
+    [Authorize(ClinicaMedicaPermissions.Medicos.Get)]
     public async Task<MedicoDto> Get(Guid id)
     {
         var medico = await _medicoRepository.GetAsync(m=> m.Id == id);
         
         return ObjectMapper.Map<Medico, MedicoDto>(medico);
     }
+    
+    [Authorize(ClinicaMedicaPermissions.Medicos.GetAll)]
     public async Task<List<MedicoDto>> GetAll(PagedAndSortedResultRequestDto input)
     {
         var medico = await _medicoRepository.GetListAsync();
@@ -41,9 +45,9 @@ public class MedicosAppService : ApplicationService, IMedicoAppServices
         return ObjectMapper.Map<List<Medico>,List<MedicoDto>>(medico);
     }
     
-    [Authorize(ClinicaMedicaPermissions.Pacientes.Delete)]
+    [Authorize(ClinicaMedicaPermissions.Medicos.Delete)]
     public async Task Delete(Guid id)
     {
-        await _medicoRepository.DeleteAsync(t=> t.Id == id);
+        await _medicoRepository.DeleteAsync(m=> m.Id == id);
     }
 }
