@@ -1,6 +1,6 @@
 ﻿using Autofac;
-using ClinicaMedica.MongoDB;
-using ClinicaMedica.MongoDB.Tratamentos;
+using ClinicaMedica.MongoDb;
+using ClinicaMedica.MongoDb.Tratamentos;
 using ClinicaMedica.Tratamentos;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -19,20 +19,13 @@ namespace ClinicaMedica;
     typeof(AbpAutofacModule),
     typeof(AbpTestBaseModule),
     typeof(AbpAuthorizationModule),
-    typeof(AbpBackgroundJobsAbstractionsModule)
+    typeof(AbpBackgroundJobsAbstractionsModule),
+    typeof(ClinicaMedicaDomainModule)
     )]
 public class ClinicaMedicaTestBaseModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        context.Services.AddScoped<ITratamentoRepository, TratamentoRepository>();
-        
-        context.Services.AddMongoDbContext<ClinicaMedicaMongoDbContext>(options =>
-        {
-            options.AddDefaultRepositories();
-            options.AddRepository<Tratamento, TratamentoRepository>();
-
-        });
         
         Configure<AbpBackgroundJobOptions>(options =>
         {
@@ -44,7 +37,7 @@ public class ClinicaMedicaTestBaseModule : AbpModule
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
     {
-        //SeedTestData(context);
+        SeedTestData(context);
     }
 
     private static void SeedTestData(ApplicationInitializationContext context)

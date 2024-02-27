@@ -1,4 +1,4 @@
-using ClinicaMedica.MongoDB;
+using ClinicaMedica.MongoDb;
 using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
 

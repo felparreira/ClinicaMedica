@@ -5,7 +5,7 @@ using MongoDB.Driver;
 using Volo.Abp.Data;
 using Volo.Abp.MongoDB;
 
-namespace ClinicaMedica.MongoDB;
+namespace ClinicaMedica.MongoDb;
 
 [ConnectionStringName("Default")]
 public class ClinicaMedicaMongoDbContext : AbpMongoDbContext

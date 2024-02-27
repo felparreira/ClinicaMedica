@@ -10,7 +10,7 @@ using Volo.Abp.SettingManagement.MongoDB;
 using Volo.Abp.TenantManagement.MongoDB;
 using Volo.Abp.Uow;
 
-namespace ClinicaMedica.MongoDB;
+namespace ClinicaMedica.MongoDb;
 
 [DependsOn(
     typeof(ClinicaMedicaDomainModule),

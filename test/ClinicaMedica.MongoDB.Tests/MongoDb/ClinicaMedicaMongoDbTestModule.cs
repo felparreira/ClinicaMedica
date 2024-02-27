@@ -1,12 +1,12 @@
-﻿using System;
-using Volo.Abp.Data;
+﻿using Volo.Abp.Data;
 using Volo.Abp.Modularity;
 
-namespace ClinicaMedica.MongoDB;
+namespace ClinicaMedica.MongoDb;
 
 [DependsOn(
     typeof(ClinicaMedicaApplicationTestModule),
     typeof(ClinicaMedicaMongoDbModule)
+    
 )]
 public class ClinicaMedicaMongoDbTestModule : AbpModule
 {

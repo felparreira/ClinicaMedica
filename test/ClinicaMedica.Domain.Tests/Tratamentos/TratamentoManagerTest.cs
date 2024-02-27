@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ClinicaMedica.Exceptions;
 using ClinicaMedica.Medicos;
-using ClinicaMedica.MongoDB.Tratamentos;
 using ClinicaMedica.Pacientes;
 using Shouldly;
 using Volo.Abp;
+using Volo.Abp.Modularity;
 using Xunit;
 
 namespace ClinicaMedica.Tratamentos;
 
-public sealed class TratamentoManagerTest : ClinicaMedicaDomainTestBase<ClinicaMedicaDomainTestModule>
+[Collection(ClinicaMedicaTestConsts.CollectionDefinitionName)]
+public abstract class TratamentoManagerTest<TStartupModule> : ClinicaMedicaDomainTestBase<TStartupModule> where TStartupModule : IAbpModule
+
 {
     private readonly ITratamentoRepository _tratamentosRepository;
     private readonly TratamentoManager _tratamentoManager;
@@ -56,7 +58,7 @@ public sealed class TratamentoManagerTest : ClinicaMedicaDomainTestBase<ClinicaM
         
         tratamentoPersisted?.MedicoId.ShouldBe(medico.Id);
         tratamentoPersisted?.PacienteId.ShouldBe(paciente.Id);
-        tratamentoPersisted?.Sintomas.ShouldContain("Dor na cabeça");
+        tratamentoPersisted?.Sintomas.ShouldContain("Dor de cabeça");
         tratamentoPersisted?.Diagnostico.ShouldBe(diagnostico);
     }
     

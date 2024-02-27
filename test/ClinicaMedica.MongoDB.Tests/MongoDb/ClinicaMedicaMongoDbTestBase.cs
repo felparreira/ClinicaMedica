@@ -1,4 +1,4 @@
-﻿namespace ClinicaMedica.MongoDB;
+﻿namespace ClinicaMedica.MongoDb;
 
 public abstract class ClinicaMedicaMongoDbTestBase : ClinicaMedicaTestBase<ClinicaMedicaMongoDbTestModule>
 {

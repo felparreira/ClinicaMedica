@@ -1,11 +1,13 @@
 using System.Threading.Tasks;
 using Shouldly;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.Modularity;
 using Xunit;
 
 namespace ClinicaMedica.Pacientes;
 
-public class PacienteAppServiceTest : ClinicaMedicaApplicationTestBase<ClinicaMedicaApplicationTestModule>
+public abstract class PacienteAppServiceTest<TStartupModule> : ClinicaMedicaApplicationTestBase<TStartupModule>
+where TStartupModule : IAbpModule
 {
     private readonly IPacientesAppService _pacienteAppService;
 

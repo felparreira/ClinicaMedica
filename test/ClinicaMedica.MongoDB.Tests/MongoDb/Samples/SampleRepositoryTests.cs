@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Identity;
 using Xunit;
 
-namespace ClinicaMedica.MongoDB.Samples;
+namespace ClinicaMedica.MongoDb.Samples;
 
 /* This is just an example test class.
  * Normally, you don't test ABP framework code

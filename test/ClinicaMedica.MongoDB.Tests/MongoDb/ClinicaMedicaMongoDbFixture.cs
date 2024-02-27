@@ -1,7 +1,7 @@
 using System;
 using EphemeralMongo;
 
-namespace ClinicaMedica.MongoDB;
+namespace ClinicaMedica.MongoDb;
 
 public class ClinicaMedicaMongoDbFixture : IDisposable
 {

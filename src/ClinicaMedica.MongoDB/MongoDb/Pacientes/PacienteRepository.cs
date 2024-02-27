@@ -3,7 +3,7 @@ using ClinicaMedica.Pacientes;
 using Volo.Abp.Domain.Repositories.MongoDB;
 using Volo.Abp.MongoDB;
 
-namespace ClinicaMedica.MongoDB.Pacientes;
+namespace ClinicaMedica.MongoDb.Pacientes;
 
 public class PacienteRepository : MongoDbRepository<ClinicaMedicaMongoDbContext, Paciente, Guid>, IPacienteRepository
 {

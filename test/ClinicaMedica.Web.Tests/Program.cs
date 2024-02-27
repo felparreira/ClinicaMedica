@@ -1,10 +1,13 @@
-using Microsoft.AspNetCore.Builder;
 using ClinicaMedica;
+using Microsoft.AspNetCore.Builder;
 using Volo.Abp.AspNetCore.TestBase;
 
 var builder = WebApplication.CreateBuilder();
 await builder.RunAbpModuleAsync<ClinicaMedicaWebTestModule>();
 
-public partial class Program
+namespace ClinicaMedica
 {
+    public partial class Program
+    {
+    }
 }

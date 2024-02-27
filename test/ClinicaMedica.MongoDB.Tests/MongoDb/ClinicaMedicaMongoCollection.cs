@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace ClinicaMedica.MongoDB;
+namespace ClinicaMedica.MongoDb;
 
 [CollectionDefinition(ClinicaMedicaTestConsts.CollectionDefinitionName)]
 public class ClinicaMedicaMongoCollection : ClinicaMedicaMongoDbCollectionFixtureBase

@@ -1,7 +1,6 @@
-﻿using ClinicaMedica.MongoDB;
-using Xunit;
+﻿using Xunit;
 
-namespace ClinicaMedica.MongoDB;
+namespace ClinicaMedica.MongoDb;
 
 public class ClinicaMedicaMongoDbCollectionFixtureBase : ICollectionFixture<ClinicaMedicaMongoDbFixture>
 {

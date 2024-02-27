@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ClinicaMedica.Data;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
-using ClinicaMedica.Data;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.MongoDB;
 
-namespace ClinicaMedica.MongoDB;
+namespace ClinicaMedica.MongoDb;
 
 public class MongoDbClinicaMedicaDbSchemaMigrator : IClinicaMedicaDbSchemaMigrator, ITransientDependency
 {

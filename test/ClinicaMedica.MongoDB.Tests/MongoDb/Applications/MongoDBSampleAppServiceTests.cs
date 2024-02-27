@@ -1,4 +1,3 @@
-using ClinicaMedica.MongoDB;
 using ClinicaMedica.Samples;
 using Xunit;
 
