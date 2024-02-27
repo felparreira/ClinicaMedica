@@ -5,7 +5,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace ClinicaMedica.Pacientes;
 
-public class CreateUpdatePacienteDto : PagedAndSortedResultRequestDto, IValidatableObject
+public class CreateUpdatePacienteDto : IValidatableObject
 {
     [Required] 
     [StringLength(128)] 
@@ -18,7 +18,6 @@ public class CreateUpdatePacienteDto : PagedAndSortedResultRequestDto, IValidata
     [Required] public Sexo Sexo { get; set; }
 
     [Required]
-    [MaxLength(3)]
     public int Idade { get; set; }
     
     [StringLength(32)]

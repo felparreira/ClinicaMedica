@@ -81,12 +81,14 @@ public class TratamentoManager : DomainService
     );
   }
 
-  private async Task<TratamentoCacheItem?> GetTratamentoFromDataBase(Guid id)
+  private async Task<TratamentoCacheItem> GetTratamentoFromDataBase(Guid id)
   {
     var tratamento = await _tratamentosRepository.FirstOrDefaultAsync(x => x.Id == id);
 
     if (tratamento == null)
-      throw new BusinessException(ExceptionConsts.TratamentoManager.TratamentoInexistente);
+    {
+      throw new BusinessException(ExceptionConsts.TratamentoManager.TratamentoInexistente); 
+    }
 
     var tratamentoCacheItem = new TratamentoCacheItem
     {
@@ -107,7 +109,6 @@ public class TratamentoManager : DomainService
     var arquivoTratamento = new ArquivoTratamento(nomeArquivo);
 
     var ms = new MemoryStream();
-
     arquivo.CopyTo(ms);
     var fileBytes = ms.ToArray();
     

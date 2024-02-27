@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper.Internal.Mappers;
 using ClinicaMedica.Permissions;
 using ClinicaMedica.Tratamentos.Events.Eto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp.BlobStoring;
 using Volo.Abp.EventBus.Local;
 
 namespace ClinicaMedica.Tratamentos;
@@ -18,11 +20,13 @@ public class TratamentoAppService : ApplicationService, ITratamentoAppService
     private readonly TratamentoManager _tratamentoManager;
     private readonly ITratamentoRepository _tratamentoRepository;
     private readonly ILocalEventBus _localEventBus;
-    public TratamentoAppService(TratamentoManager tratamentoManager, ITratamentoRepository tratamentoRepository, ILocalEventBus localEventBus)
+    private readonly IBlobContainer<TratamentoContainer> _blobContainer;
+    public TratamentoAppService(TratamentoManager tratamentoManager, ITratamentoRepository tratamentoRepository, ILocalEventBus localEventBus, IBlobContainer<TratamentoContainer> blobContainer)
     {
         _tratamentoManager = tratamentoManager;
         _tratamentoRepository = tratamentoRepository;
         _localEventBus = localEventBus;
+        _blobContainer = blobContainer;
     }
 
     [Authorize(ClinicaMedicaPermissions.Tratamentos.Create)]
@@ -30,6 +34,14 @@ public class TratamentoAppService : ApplicationService, ITratamentoAppService
     {
         var tratamento = await _tratamentoManager.Criar(input.MedicoId, input.PacienteId, input.Sintomas, input.Diagnostico);
         return ObjectMapper.Map<Tratamento,TratamentoDto>(tratamento);
+    }
+    
+    [Authorize(ClinicaMedicaPermissions.Tratamentos.Get)]
+    public async Task<TratamentoDto> Get(Guid id)
+    {
+        var tratamento = await _tratamentoManager.GetTratamentoById(id);
+        
+        return ObjectMapper.Map<TratamentoCacheItem, TratamentoDto>(tratamento);
     }
 
     [Authorize(ClinicaMedicaPermissions.Tratamentos.GetAll)]
@@ -56,4 +68,17 @@ public class TratamentoAppService : ApplicationService, ITratamentoAppService
             Id = id
         });
     }
-}
+
+    public async Task<byte[]> DownloadArquivoTratamento(string nomeArquivo)
+    {
+        
+       var arquivo = await _blobContainer.GetAllBytesOrNullAsync(nomeArquivo);
+       
+       if (arquivo == null)
+       {
+           throw new Exception("Arquivo não encontrado!");
+       }
+       
+       return arquivo;
+    }
+} 

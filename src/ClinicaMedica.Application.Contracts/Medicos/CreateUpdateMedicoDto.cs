@@ -5,7 +5,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace ClinicaMedica.Medicos;
 
-public class CreateUpdateMedicoDto : PagedAndSortedResultRequestDto, IValidatableObject
+public class CreateUpdateMedicoDto : IValidatableObject
 {
     [Required] [StringLength(128)] public string Nome { get; set; }
     

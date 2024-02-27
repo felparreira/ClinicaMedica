@@ -79,16 +79,17 @@ public sealed class TratamentoManagerTest : ClinicaMedicaDomainTestBase<ClinicaM
         var medico = await _medicoManager.Criar(medicoId, nomeMedico, sobreNomeMedico, Especialidade.Ginecologista, telefoneMedico);
  
         string diagnostico = "Hipertensão arterial";
+
+        var exception = await Should.ThrowAsync<BusinessException>(async () =>
+        {
+            var tratamento = await _tratamentoManager.Criar(medico.Id, paciente.Id, new List<string>
+                {
+                    "Dor de cabeça"
+                },
+                diagnostico);
+        });
         
-        var tratamento = await _tratamentoManager.Criar(medico.Id, paciente.Id, new List<string>
-            {
-                "Dor de cabeça"
-            },
-            diagnostico);
-
-        var tratamentoPersisted = await _tratamentosRepository.FindAsync(tratamento.Id);
-
-        throw new BusinessException(ExceptionConsts.TratamentoManager.EspecialidadeNaoPermitida);
+       exception.Code.ShouldBe(ExceptionConsts.TratamentoManager.EspecialidadeNaoPermitida);
     }
 
 }

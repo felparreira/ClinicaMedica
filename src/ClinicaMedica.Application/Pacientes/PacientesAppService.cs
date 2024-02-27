@@ -33,12 +33,12 @@ public class PacientesAppService : ApplicationService, IPacientesAppService
     [Authorize(ClinicaMedicaPermissions.Pacientes.Update)]
     public async Task<PacienteDto> Update(CreateUpdatePacienteDto input, Guid id)
     {
-        var paciente = await _pacienteRepository.GetAsync(p=> p.Id == id);
+        var paciente = await _pacienteRepository.FirstOrDefaultAsync(p=> p.Id == id);
        
-        await _pacienteManager.Atualizar(paciente.Nome, paciente.SobreNome, paciente.Sexo, paciente.Idade,
-            paciente.Telefone);
+        paciente = _pacienteManager.Atualizar(paciente, input.Nome, input.SobreNome, input.Sexo, input.Idade, input.Telefone);
 
-        return ObjectMapper.Map<Paciente, PacienteDto>(paciente);
+        var result = await _pacienteRepository.UpdateAsync(paciente);
+        return ObjectMapper.Map<Paciente, PacienteDto>(result);
     }
     
     [Authorize(ClinicaMedicaPermissions.Pacientes.Get)]

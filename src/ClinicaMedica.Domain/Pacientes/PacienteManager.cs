@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Volo.Abp.Data;
 using Volo.Abp.Domain.Services;
 
 namespace ClinicaMedica.Pacientes;
@@ -22,17 +23,15 @@ public class PacienteManager : DomainService
         return paciente;
     }
     
-    public async Task<Paciente> Atualizar(string nome, string sobreNome, Sexo sexo, int idade,
+    public Paciente Atualizar(Paciente paciente, string nome, string sobreNome, Sexo sexo, int idade,
         string telefone)
     {
-        var paciente = new Paciente(nome, sobreNome, idade, sexo, telefone); 
-        await _pacienteRepository.UpdateAsync(paciente);
-        
-        return paciente;
-    }
+        paciente.Nome = nome;
+        paciente.SobreNome = sobreNome;
+        paciente.Sexo = sexo;
+        paciente.Idade = idade;
+        paciente.Telefone = telefone;
 
-    public object GetListAsync(Guid pacienteId)
-    {
-        throw new NotImplementedException();
+        return paciente;
     }
 }

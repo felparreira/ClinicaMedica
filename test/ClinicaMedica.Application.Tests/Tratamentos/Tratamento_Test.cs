@@ -8,13 +8,15 @@ namespace ClinicaMedica.Tratamentos;
 public sealed class TratamentoTest : ClinicaMedicaApplicationTestBase<ClinicaMedicaApplicationTestModule>
 {
     private readonly TratamentoAppService _tratamentoAppService;
+    private readonly ITratamentoRepository _tratamentoRepository;
     
-    public TratamentoTest(TratamentoAppService tratamentoAppService)
+    public TratamentoTest()
     {
         _tratamentoAppService = GetRequiredService<TratamentoAppService>();
+        _tratamentoRepository = GetRequiredService<ITratamentoRepository>();
     }
 
-    public async Task ShouldCreateATreatment()
+    public async Task<CreateUpdateTratamentoDto> ShouldCreateATreatment()
     {
         var tratamento = new CreateUpdateTratamentoDto()
         {
@@ -24,6 +26,7 @@ public sealed class TratamentoTest : ClinicaMedicaApplicationTestBase<ClinicaMed
             Diagnostico = "Virose",
             Status = 0
         };
+        return tratamento;
     }
         
     
